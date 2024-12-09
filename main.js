@@ -10,7 +10,7 @@ const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm install input
 const fs = require('fs');
 const { fileURLToPath } = require('url');
-const { all } = require('axios');
+
 const crypto = require('crypto')
 const env = require('dotenv').config()
 
