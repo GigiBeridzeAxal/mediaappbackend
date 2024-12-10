@@ -194,8 +194,8 @@ app.post('/sendmessages' , async(req,res) => {
 
   selectedchanels.forEach(async(senddata, id) => {
 
-    if(message){
-      if(!date){
+    if(message && uploadedfiles.length == 0){
+      if(!date ){
                const send = await client.sendMessage(senddata[1]  , {message})
       }else{
         const datmin = new Date(date)
@@ -246,13 +246,19 @@ app.post('/sendmessages' , async(req,res) => {
 
   if(date !== undefined){
     const datmin = new Date(date)
+    if(message){
+      const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000 , caption:message})
+    }else{
     const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000})
-
+  }
 
   }else{
+    if(message){
+      const send = await client.sendFile(senddata[1]  , {file:pathsend , caption:message})
+    }else{
     
     const send = await client.sendFile(senddata[1]  , {file:pathsend})
-
+  }
 
   }
 
@@ -296,7 +302,11 @@ app.get('/getchanel' , async(req,res) => {
     const result = await client.getDialogs()
     let chanellist = []
     // Filter only channels
-    result.filter(data => data.dialog.peer && data.dialog.peer.channelId).forEach(data => chanellist = [...chanellist , [data.title , data.dialog.peer.channelId]])
+    console.log(result )
+    result.filter(data => data.dialog.peer && data.dialog.peer.channelId && data.entity.creator).forEach(data => chanellist = [...chanellist , [data.title , data.dialog.peer.channelId]])
+    result.filter(data => data.dialog.peer && data.dialog.peer.channelId).forEach(data => console.log(data.entity.creator))
+    console.log(chanellist)
+    
 
     res.json(chanellist)
 

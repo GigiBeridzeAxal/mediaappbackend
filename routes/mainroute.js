@@ -12,6 +12,16 @@ router.post('/update' , async(req,res) => {
 
 })
 
+router.post('/deletetemplate' , async(req,res) => {
+
+    const {id} = req.body
+
+    const  delte = await savetemplatemodel.deleteOne({_id:id})
+
+    res.json("Delted")
+
+})
+
 router.post('/getuserbyid' , async(req,res) => {
 
     const {id} = req.body

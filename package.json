@@ -13,9 +13,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "froala-editor": "^4.3.1",
     "input": "^1.0.1",
     "mongoose": "^8.8.4",
     "nodemon": "^3.1.7",
+    "react-froala-wysiwyg": "^4.3.1",
     "readline-sync": "^1.4.10",
     "telegram": "^2.26.8"
   }
