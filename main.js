@@ -196,10 +196,10 @@ app.post('/sendmessages' , async(req,res) => {
 
     if(message && uploadedfiles.length == 0){
       if(!date ){
-               const send = await client.sendMessage(senddata[1]  , {message})
+               const send = await client.sendMessage(senddata[1]  , {message, parseMode:"html" })
       }else{
         const datmin = new Date(date)
-        const send = await client.sendMessage(senddata[1]  , {message , schedule:datmin / 1000})
+        const send = await client.sendMessage(senddata[1]  , {message , schedule:datmin / 1000 , parseMode:"html"})
 
       }
 
@@ -247,17 +247,17 @@ app.post('/sendmessages' , async(req,res) => {
   if(date !== undefined){
     const datmin = new Date(date)
     if(message){
-      const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000 , caption:message})
+      const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000 , caption:message , parseMode:"html"})
     }else{
-    const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000})
+    const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000 , parseMode:"html"})
   }
 
   }else{
     if(message){
-      const send = await client.sendFile(senddata[1]  , {file:pathsend , caption:message})
+      const send = await client.sendFile(senddata[1]  , {file:pathsend , caption:message , parseMode:"html"})
     }else{
     
-    const send = await client.sendFile(senddata[1]  , {file:pathsend})
+    const send = await client.sendFile(senddata[1]  , {file:pathsend , parseMode:"html"})
   }
 
   }
