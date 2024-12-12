@@ -10,6 +10,7 @@ const { StringSession } = require('telegram/sessions');
 const input = require('input'); // npm install input
 const fs = require('fs');
 const { fileURLToPath } = require('url');
+const cheerio = require('cheerio');
 
 const crypto = require('crypto')
 const env = require('dotenv').config()
@@ -183,11 +184,14 @@ app.get('/checkclient' , async(req,res) => {
 app.post('/sendmessages' , async(req,res) => {
 
 
-  const {selectedchanels , message , uploadedfiles , allpath , date} = req.body
+  const {selectedchanels , messagei, uploadedfiles , allpath , date} = req.body
 
 
   let done = 0
 
+
+
+  const message = messagei.replace(/<\/p>/g, '</p>\n')
 
 
 
@@ -196,8 +200,10 @@ app.post('/sendmessages' , async(req,res) => {
 
     if(message && uploadedfiles.length == 0){
       if(!date ){
-               const send = await client.sendMessage(senddata[1]  , {message, parseMode:"html" })
+
+               const send = await client.sendMessage(senddata[1]  , {message , parseMode:"html" })
       }else{
+
         const datmin = new Date(date)
         const send = await client.sendMessage(senddata[1]  , {message , schedule:datmin / 1000 , parseMode:"html"})
 
@@ -246,14 +252,16 @@ app.post('/sendmessages' , async(req,res) => {
 
   if(date !== undefined){
     const datmin = new Date(date)
-    if(message){
+    if(messagei){
+      const message = messagei.replace(/<\/p>/g, '</p>\n')
       const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000 , caption:message , parseMode:"html"})
     }else{
     const send = await client.sendFile(senddata[1]  , {file:pathsend, scheduleDate:datmin / 1000 , parseMode:"html"})
   }
 
   }else{
-    if(message){
+    if(messagei){
+      const message = messagei.replace(/<\/p>/g, '</p>\n')
       const send = await client.sendFile(senddata[1]  , {file:pathsend , caption:message , parseMode:"html"})
     }else{
     
