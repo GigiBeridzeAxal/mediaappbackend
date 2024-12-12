@@ -10,6 +10,7 @@ router.post('/update' , async(req,res) => {
 
     const update = await savetemplatemodel.updateOne({_id:id}, {$set:{message:message , selectedchanels:selectedchanels , uploadedfiles:uploadedfiles , allpath:allpath , date:date }})
 
+    res.json("Updated")
 })
 
 router.post('/deletetemplate' , async(req,res) => {

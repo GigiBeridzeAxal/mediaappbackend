@@ -209,6 +209,8 @@ app.post('/sendmessages' , async(req,res) => {
 
       }
 
+      res.json("Sended")
+
     }
 
 
