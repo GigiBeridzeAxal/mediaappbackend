@@ -42,8 +42,9 @@ router.get('/gettemplates' , async(req,res) => {
 
 router.post('/savetemplate' , async(req,res) => {
 
-    const {selectedchanels , message , uploadedfiles , allpath , date} = req.body
+    const {selectedchanels , messagei , uploadedfiles , allpath , date} = req.body
 
+    const message = messagei
 
     const create = await savetemplatemodel.create({selectedchanels , message , uploadedfiles , allpath , date})
 
